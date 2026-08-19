@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+.textHoverStyle {
+  @apply relative text-gray-700 hover:bg-linear-120 from-blue-500 via-purple-600 to-pink-500 bg-clip-text hover:text-transparent transition-colors duration-300
+         after:content-[''] after:absolute after:left-0 after:bottom-0 
+         after:w-0 after:h-0.5 after:bg-linear-120  after:from-blue-500 after:via-purple-600 after:to-pink-500  hover:after:w-full 
+         after:transition-all after:duration-300 cursor-pointer
+         dark:text-slate-50 dark:hover:text-slate-200 dark:after:bg-slate-50;
+}
+.iconStyle {
+  @apply bg-slate-600 transition-colors duration-300 text-slate-200 hover:bg-slate-500 size-10 p-2 rounded-full;
+}
+.btnStyle{
+  @apply text-slate-100 px-4 py-2 rounded-br-xl rounded-tl-xl text-lg font-medium bg-linear-120 from-indigo-600 via-violet-600 to-purple-700 hover:shadow-[0px_0px_16px_-1px_rgba(0,0,0,0.55)] shadow-indigo-700 hover:scale-105 transition-all duration-300 text-center
+}
+.textStyle{
+  @apply bg-linear-120 from-blue-500 via-purple-600 to-pink-500 bg-clip-text text-transparent dark:text-slate-50
+}
+@layer base {
+  /* Light Mode Design Tokens */
+  :root {
+    --background: #fffffff6;
+    --spot-size: 34rem;
+    --spot-core: #0074ca38;
+    --spot-mid: #00b4bc1a;
+    --grid-line: #0206180f;
+  }
+
+  /* Dark Mode Design Tokens */
+  .dark {
+    --background: #040a24;
+    --spot-size: 38rem;
+    --spot-core: #41b3ff4d;
+    --spot-mid: #9066d024;
+    --grid-line: #ffffff0f;
+  }
+}
+
+/* Utilities utilizing the dynamic CSS variables */
+@utility spotlight-layer {
+  --spot-x: 50%;
+  --spot-y: 50%;
+  --spot-opacity: 0;
+  opacity: var(--spot-opacity);
+  transition: opacity 400ms ease;
+  background: radial-gradient(
+    var(--spot-size) var(--spot-size) at var(--spot-x) var(--spot-y),
+    var(--spot-core) 0%,
+    var(--spot-mid) 40%,
+    transparent 70%
+  );
+}
+
+@utility spotlight-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at 50% 40%, black, transparent 75%);
+}
