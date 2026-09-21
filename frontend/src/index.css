@@ -9,7 +9,7 @@
          dark:text-slate-50 dark:hover:text-slate-200 dark:after:bg-slate-50;
 }
 .iconStyle {
-  @apply bg-slate-600 transition-colors duration-300 text-slate-200 hover:bg-slate-500 size-10 p-2 rounded-full;
+  @apply dark:bg-slate-600 bg-slate-200 dark:text-slate-200 text-slate-700/80  dark:hover:bg-slate-500 hover:bg-slate-300 transition-all duration-300 size-10 p-2 rounded-full;
 }
 .btnStyle{
   @apply text-slate-100 px-4 py-2 rounded-br-xl rounded-tl-xl text-lg font-medium bg-linear-120 from-indigo-600 via-violet-600 to-purple-700 hover:shadow-[0px_0px_16px_-1px_rgba(0,0,0,0.55)] shadow-indigo-700 hover:scale-105 transition-all duration-300 text-center

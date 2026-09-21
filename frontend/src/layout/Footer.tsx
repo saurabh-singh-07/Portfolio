@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <div>
-      <div className="flex flex-col md:flex-row justify-around mt-15 mb-5 py-5 text-slate-800 dark:text-zinc-200">
+      <div className="flex flex-row justify-around mt-15 mb-5 py-5 text-slate-800 dark:text-zinc-200">
         <div className="mb-10 md:my-2">
           <p className="textStyle text-center text-[27px] lg:text-3xl font-semibold mb-5">
             Sauabh Singh
@@ -23,15 +23,12 @@ function Footer() {
         </div>
         <div className="mb-10  md:my-2 text-center">
           <h3 className="text-xl font-bold text-slate-700/90 dark:text-slate-200">Quick Links</h3>
-          <ul className="flex flex-col gap-5 mt-4 text-lg">
-            <Link className="textHoverStyle" to="#">Home</Link>
+          <ul className="flex flex-col items-center gap-5 mt-4 text-lg">
+            <Link className="textHoverStyle " to="#">Home</Link>
             <Link className="textHoverStyle" to="#">Projects</Link>
             <Link className="textHoverStyle" to="#">About</Link>
             <Link className="textHoverStyle" to="#">Contact</Link>
           </ul>
-        </div>
-        <div className="mb-3 md:mb-10 hidden lg:block">
-            <div>hellllloooooooooo</div>
         </div>
       </div>
 

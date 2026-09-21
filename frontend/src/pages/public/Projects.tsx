@@ -1,51 +1,43 @@
 import { ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
-
-interface Project {
-  title: string;
-  description: string;
-  image: string;
-  technologies: string[];
-  liveLink: string;
-  githubLink: string;
-}
-
-const projects: Project[] = [
-  {
-    title: "Thumbnest – AI Thumbnail Generator",
-    description:
-      "A full-stack AI-powered web application that generates attractive thumbnails from user prompts with authentication and image management.",
-    image: "/projects/thumbnest.png",
-    technologies: ["React", "TypeScript", "Node.js", "Express", "MongoDB"],
-    liveLink: "https://thumbnest.vercel.app/",
-    githubLink: "https://github.com/saurabh-singh-07/Thumbnest",
-  },
-  {
-    title: "ICTCricinfo",
-    description:
-      "A modern cricket information platform providing live matches, player details, latest cricket news and upcoming international series.",
-    image: "/projects/ictcricinfo.png",
-    technologies: ["React", "JavaScript", "Tailwind CSS", "API"],
-    liveLink: "#",
-    githubLink: "#",
-  },
-  {
-    title: "RestroBooks",
-    description:
-      "A restaurant management and booking web application designed to provide a smooth experience for customers and restaurant owners.",
-    image: "/projects/restrobooks.png",
-    technologies: ["React", "JavaScript", "Tailwind CSS", "Node.js"],
-    liveLink: "#",
-    githubLink: "#",
-  },
-];
+import {motion} from 'motion/react'
+import { useEffect, useState } from "react";
+import api from "../../api/api";
+import toast from "react-hot-toast";
+import type { Project } from "../../assets/assets";
 
 export default function Projects() {
+  const [data, setData] = useState<Project[] | []>([]);
+
+  useEffect(() => {
+    getData();
+  },[])
+
+  const getData = async () => {
+    try {
+      const response = await api.get("/Project/getProject");
+      setData(response?.data?.projects);
+      console.log(response?.data?.projects);
+      
+      toast.success("data fetch successfully...")
+      
+    } catch (error : any) {
+      toast.error("Something wrong...")
+      console.error(error)
+    }
+  }
+
+
   return (
     <section id="projects" className="min-h-screen px-6 py-24 text-white">
       <div className="mx-auto max-w-7xl">
         {/* Section Header */}
-        <div className="mb-16 text-center">
+        <motion.div 
+        initial={{ x: -50, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="mb-16 text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-blue-400">
             My Work
           </p>
@@ -60,20 +52,25 @@ export default function Projects() {
             A collection of projects I've built using modern technologies,
             focusing on clean design, performance and real-world solutions.
           </p>
-        </div>
+        </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
+        <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+         className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {data.map((project : Project) => (
             <div
-              key={project.title}
+              key={project?.name}
               className="
                 group overflow-hidden rounded-2xlborder border-slate-800 dark:bg-slate-900/70 bg-slate-300/80 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-2  hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10">
               {/* Project Image */}
               <div className="relative aspect-video overflow-hidden bg-slate-800">
                 <img
-                  src={project.image}
-                  alt={project.title}
+                  src={project?.imgUrl}
+                  alt={project?.imgUrl}
                   className="
                     h-full w-full object-cover transition duration-500 group-hover:scale-105 "
                 />
@@ -87,16 +84,16 @@ export default function Projects() {
               {/* Project Content */}
               <div className="p-6">
                 <h2 className="text-xl font-semibold transition-colors text-slate-800/80 dark:text-white group-hover:text-blue-400">
-                  {project.title}
+                  {project?.name}
                 </h2>
 
                 <p className="mt-3 line-clamp-3 text-sm leading-6 dark:text-slate-400 text-slate-500">
-                  {project.description}
+                  {project?.description}
                 </p>
 
                 {/* Technologies */}
                 <div className="mt-5 flex flex-wrap gap-2">
-                  {project.technologies.map((tech) => (
+                  {project?.skills.map((tech) => (
                     <span
                       key={tech}
                       className=" rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-xs font-medium dark:text-blue-300 text-slate-600">
@@ -109,7 +106,7 @@ export default function Projects() {
                 <div className="mt-6 flex items-center gap-3">
                   {/* Live Demo */}
                   <a
-                    href={project.liveLink}
+                    href={project?.liveLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-linear-120 from-blue-500/90 to-indigo-600 px-4 py-2.5 text-sm font-medium text-white transition-all hover:from-blue-500 hover:to-indigo-500 hover:shadow-lg hover:shadow-blue-500/20"
@@ -120,11 +117,11 @@ export default function Projects() {
 
                   {/* GitHub */}
                   <a
-                    href={project.githubLink}
+                    href={project?.githubLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-centerjustify-center rounded-lg border border-slate-700 dark:bg-slate-900 bg-slate-900/70 px-4 py-2.5 text-slate-300 transition-all hover:border-blue-500 hover:bg-blue-500/10 hover:text-slate-700"
-                    aria-label={`View ${project.title} source code`}
+                    aria-label={`View ${project?.name} source code`}
                   >
                     <FaGithub size={19} />
                   </a>
@@ -132,7 +129,7 @@ export default function Projects() {
               </div>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

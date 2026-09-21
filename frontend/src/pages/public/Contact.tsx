@@ -2,8 +2,44 @@
 
 import { ArrowUpRight, Mail, MapPin, Send, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
-
+import React, {useState } from "react";
+import api from "../../api/api";
+import toast from "react-hot-toast";
 export default function Contact() {
+  const [isSending, setIsSending] = useState(false);
+  const [formData, setFormData] = useState({
+    name : '',
+    email : '',
+    subject : '',
+    message : ''
+  })
+
+  const handleChange = (e : React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const {name, value} = e.target
+    setFormData(prev => ({...prev, [name] : value}))
+  }
+  const handleFromData = async (e : React.FormEvent<HTMLFormElement>) =>{
+      e.preventDefault();
+
+  try {
+    setIsSending(true)
+    const response = await api.post('/Contact', formData)
+    console.log(response.data)
+    toast.success(response.data.message)
+     setFormData({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+  } catch (error : any) {
+    console.error(error);
+    toast.error("Something wrong....")
+  }  
+  finally {
+    setIsSending(false);
+  }  
+  }
   return (
     <section
       id="contact"
@@ -82,7 +118,7 @@ export default function Contact() {
                       href="mailto:your@email.com"
                       className="mt-1 block text-sm font-medium text-slate-700 hover:text-blue-600 dark:text-slate-200 dark:hover:text-blue-400"
                     >
-                      your@email.com
+                      ajinkyabisht75@email.com
                     </a>
                   </div>
                 </div>
@@ -96,7 +132,7 @@ export default function Contact() {
                   <div>
                     <p className="text-sm text-slate-400">Location</p>
                     <p className="mt-1 text-sm font-medium text-slate-700 dark:text-slate-200">
-                      India
+                      Dehradun, uttarkhand
                     </p>
                   </div>
                 </div>
@@ -113,7 +149,7 @@ export default function Contact() {
 
           {/* Form */}
           <div className="border-t border-slate-200/70 p-8 sm:p-10 md:col-span-3 md:border-l md:border-t-0 dark:border-white/8">
-            <form className="space-y-6">
+            <form  onSubmit={handleFromData} className="space-y-6">
               {/* Name + Email */}
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
@@ -123,6 +159,11 @@ export default function Contact() {
 
                   <input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                      disabled={isSending}
+
                     placeholder="John Doe"
                     className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 dark:border-white/8 dark:bg-white/3 dark:text-white dark:placeholder:text-slate-600"
                   />
@@ -135,6 +176,9 @@ export default function Contact() {
 
                   <input
                     type="email"
+                    name="email"
+                     value={formData.email}
+                    onChange={handleChange}
                     placeholder="john@example.com"
                     className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 dark:border-white/8 dark:bg-white/3 dark:text-white dark:placeholder:text-slate-600"
                   />
@@ -149,6 +193,9 @@ export default function Contact() {
 
                 <input
                   type="text"
+                  name="subject"
+                   value={formData.subject}
+                    onChange={handleChange}
                   placeholder="How can I help you?"
                   className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50/70 px-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 dark:border-white/8 dark:bg-white/3 dark:text-white dark:placeholder:text-slate-600"
                 />
@@ -162,6 +209,9 @@ export default function Contact() {
 
                 <textarea
                   rows={5}
+                  name="message"
+                   value={formData.message}
+                  onChange={handleChange}
                   placeholder="Tell me a little about your project..."
                   className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50/70 p-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 dark:border-white/8 dark:bg-white/3 dark:text-white dark:placeholder:text-slate-600"
                 />
@@ -172,7 +222,7 @@ export default function Contact() {
                 type="submit"
                 className="group flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-blue-600 via-indigo-600 to-violet-600 font-medium text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-violet-500/20"
               >
-                Send Message
+                {isSending ? "Sending..." : "Send Message"}
                 <Send className="size-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </button>
             </form>

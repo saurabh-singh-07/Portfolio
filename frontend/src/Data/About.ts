@@ -1,0 +1,15 @@
+export const skills = [
+    "HTML5",
+    "CSS3",
+    "JavaScript",
+    "TypeScript",
+    "React.js",
+    "Tailwind CSS",
+    "Node.js",
+    "RESTAPI",
+    "Express.js",
+    "MongoDB",
+    "POSTGRE SQL",
+    "C",
+    "C++",
+  ];
