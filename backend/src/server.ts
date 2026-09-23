@@ -20,8 +20,9 @@ declare module "express-session" {
 
 connectDB();
 const app = express();
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.set("trust proxy", 1);
+
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 app.use(
   session({
@@ -51,9 +52,6 @@ app.use("/api/Contact", ContactRouter);
 app.use("/api/Project", ProjectRouter);
 app.get("/", (req: Request, res: Response) => {
   res.send("server is live...");
-});
-app.listen(3000, () => {
-  console.log("sever is running at port 3000..");
 });
 
 export default app;
