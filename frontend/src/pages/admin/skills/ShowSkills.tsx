@@ -6,7 +6,6 @@ import api from "../../../api/api";
 import { Trash } from "lucide-react";
 import { RxUpdate } from "react-icons/rx";
 import { useNavigate  } from "react-router-dom";
-import Details from "../Ad-component.tsx/Details";
 
 interface Skill {
   _id: string;
