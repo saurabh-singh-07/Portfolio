@@ -70,7 +70,7 @@ function ShowSkills({setSkillCount} : ShowSkillsProps) {
 
   const fetchSkills = async () => {
     try {
-      const response = await api.get("/Skill/getSkills");
+      const response = await api.get("/api/Skill/getSkills");
 
       console.log("Skills:", response.data);
 
@@ -94,7 +94,7 @@ function ShowSkills({setSkillCount} : ShowSkillsProps) {
         "Are you sure you want to delete this skill ?",
       );
       if (!confirm) return;
-      const response = await api.delete(`Skill/deleteSkill/${id}`)
+      const response = await api.delete(`/api/Skill/deleteSkill/${id}`)
       toast.success(response?.data?.message || "Skill deleted successfully")
       setData((prev) =>
       prev.filter((skill) => skill._id !== id)

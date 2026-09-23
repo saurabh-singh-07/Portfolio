@@ -9,7 +9,6 @@ function AdminLayout() {
     <div className="min-h-screen">
       <AdSideBar
         toggleSideBar={toggleSideBar}
-        setToggleSideBar={setToggleSideBar}
       />
 
       <div

@@ -68,7 +68,7 @@ export default function AddProject() {
       setFetchingProject(true);
 
       const response = await api.get(
-        `/Project/getProjectById/${projectId}`
+        `/api/Project/getProjectById/${projectId}`
       );
 
       const project: ProjectResponse = response.data?.data;
@@ -251,7 +251,7 @@ export default function AddProject() {
       const data = createFormData();
 
       const response = await api.post(
-        "/Project/",
+        "/api/Project/",
         data
       );
 
@@ -290,7 +290,7 @@ export default function AddProject() {
       const data = createFormData();
 
       const response = await api.put(
-        `/Project/updateProject/${id}`,
+        `/api/Project/updateProject/${id}`,
         data
       );
 

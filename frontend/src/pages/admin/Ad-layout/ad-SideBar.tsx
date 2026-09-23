@@ -1,5 +1,4 @@
-import { CurlyBraces, Home, X } from "lucide-react";
-import type { Dispatch, SetStateAction } from "react";
+import { CurlyBraces, Home } from "lucide-react";
 import { BiLogOut } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import { data } from "../../../Data/ad-sideBar";
@@ -7,10 +6,9 @@ import { useAuth } from "../../../context/AuthContex";
 
 interface propsTypes {
   toggleSideBar: boolean;
-  setToggleSideBar: Dispatch<SetStateAction<boolean>>;
 }
 
-function AdSideBar({ toggleSideBar, setToggleSideBar }: propsTypes) {
+function AdSideBar({ toggleSideBar }: propsTypes) {
   const { isloggedIn, logout } = useAuth();
 
   return (

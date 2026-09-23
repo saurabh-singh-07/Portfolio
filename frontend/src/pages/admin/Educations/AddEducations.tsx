@@ -17,7 +17,7 @@ function AddEducations() {
   });
   const handleEdu = async ()=>{
     try {
-      const response:any = await api.post('/education/createEducation', formData);
+      const response:any = await api.post('/api/education/createEducation', formData);
       toast.success(response.data.message)
     } catch (error :any) {
       toast.error(error.response?.data?.message || "Something went wrong")

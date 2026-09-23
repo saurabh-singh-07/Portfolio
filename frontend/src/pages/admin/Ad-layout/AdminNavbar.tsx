@@ -33,8 +33,8 @@ function AdminNavbar({ toggleSideBar, setToggleSideBar }: propsTypes) {
         <DarkModeController />
         {isloggedIn && (
           <div className="dark:text-white hidden md:block text-slate-700/90 mr-3  p-2 px-4 ">
-            <h1>Hello {user.name}</h1>
-            <p className="text-sm mt-[-5px]">WelCome Back!...</p>
+            <h1>Hello {user?.name}</h1>
+            <p className="text-sm -mt-1.25">WelCome Back!...</p>
           </div>
         )}
       </div>

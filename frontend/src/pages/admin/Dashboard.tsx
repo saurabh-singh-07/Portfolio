@@ -10,6 +10,11 @@ function Dashboard() {
   const [projectCount, setProjectCount] = useState<number>(0);
   const [messageCount, setMessageCount] = useState<number>(0);
   const [educationCount, setEducationCount] = useState<number>(0); 
+
+  const handleEdu = ()=>{
+    setEducationCount(3);
+  }
+  handleEdu()
   return (
     <main className="w-full lg:max-w-375 lg:p-10 py-6">
       {/* Details */}

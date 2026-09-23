@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/server.js",
     "server": "nodemon --exec tsx src/server.ts",
-    "dev" : "nodemon -- exec tsx src/index.ts",
+    "dev" : "nodemon --exec tsx src/index.ts",
     "build": "tsc"
   },
   "keywords": [],

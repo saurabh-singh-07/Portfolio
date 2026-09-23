@@ -15,7 +15,7 @@ export default function Projects() {
 
   const getData = async () => {
     try {
-      const response = await api.get("/Project/getProject");
+      const response = await api.get("/api/Project/getProject");
       setData(response?.data?.projects);
       console.log(response?.data?.projects);
       

@@ -16,7 +16,7 @@ function Educations() {
   }, []);
   const fetchData = async () => {
     try {
-      const response: any = await api.get("/Education/getEducation");
+      const response: any = await api.get("/api/Education/getEducation");
       console.log("API data:", response.data.data[0]);
 
       setData(response.data.data[0]);
@@ -40,10 +40,11 @@ function Educations() {
         </p>
       </div>
       <VerticalTimeline>
-        {data.map((item: EduTypes) => {
+        {data.map((item: EduTypes, i) => {
           console.log(item);
           return (
             <VerticalTimelineElement
+            key={i}
               className="vertical-timeline-element--work text-slate-700 dark:text-slate-300"
               contentStyle={{ background: "rgba(59,130, 246,0.3)", color: "" }}
               contentArrowStyle={{

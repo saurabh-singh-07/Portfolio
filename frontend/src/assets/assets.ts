@@ -2,6 +2,7 @@ import type { Dispatch, SetStateAction } from "react";
 import type { IconType } from "react-icons";
 
 export interface IUser{
+  name : string;
     email: string;
     password?: string;
     createdAt?: Date;
@@ -32,6 +33,7 @@ export interface Project {
   githubLink: string;
   imgUrl: string;
   skills: string[];
+  updatedAt? : string
 }
 
 

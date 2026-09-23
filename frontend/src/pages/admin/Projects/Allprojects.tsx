@@ -21,7 +21,7 @@ export default function AllProjects({setProjectCount} :ShowProjectProps ) {
 
   const getData = async () => {
     try {
-      const response = await api.get("/Project/getProject");
+      const response = await api.get("/api/Project/getProject");
       setData(response?.data?.projects);
       console.log(response?.data?.projects);
       setProjectCount(response?.data?.count)
@@ -44,7 +44,7 @@ export default function AllProjects({setProjectCount} :ShowProjectProps ) {
         "Are you sure you want to delete this skill ?",
       );
       if(!confirm)return;
-    const response = await api.delete(`/Project/deleteProject/${id}`)
+    const response = await api.delete(`/api/Project/deleteProject/${id}`)
     toast.success(response.data?.message || "Project deleted succuessfully...");
     setData((prev)=> prev.filter((project)=> project._id !== id))
     } catch (error : any) {
@@ -71,7 +71,7 @@ export default function AllProjects({setProjectCount} :ShowProjectProps ) {
       </div>
 
       <div>
-        {visibleProjects.map((project) => (
+        {visibleProjects.map((project:Project) => (
           <div key={project._id} className="dark:text-white  text-slate-700/90 flex md:justify-start gap-4 mx-6 my-10">
             <div className="flex gap-5 bg-yellow-600/10 border border-yellow-400/60 p-3 w-full ">
               <div className="">
@@ -89,7 +89,7 @@ export default function AllProjects({setProjectCount} :ShowProjectProps ) {
                 </div>
                 <div>
                   <p>Publihed</p>
-                  <p>{new Date(project.updatedAt).toLocaleDateString()}</p>
+                  <p>{new Date(project.updatedAt ?? Date.now()).toLocaleDateString()}</p>
                 </div>
                 <div className="flex items-center gap-x-4">
                   <button onClick={()=> handleUpdate(project._id)} className="bg-blue-500 text-white px-3 py-1 rounded-bl rounded-tr hover:scale-105 shadow hover:shadow-blue-400 transition-all duration-300">Update</button>

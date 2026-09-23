@@ -67,7 +67,7 @@ export default function Skills() {
 
   const getSkills = async () => {
     try {
-      const response = await api.get("/Skill/getSkills");
+      const response = await api.get("/api/Skill/getSkills");
 
       console.log("API RESPONSE:", response.data?.data);
       setData(response?.data?.data || []);

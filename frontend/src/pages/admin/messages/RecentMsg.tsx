@@ -25,7 +25,7 @@ function RecentMsg({setMessageCount} : ShowMessageProps) {
   const fetchData = async () => {
     try {
       setIsLoading(true);
-      const response = await api.get("/Contact/getContactData");
+      const response = await api.get("/api/Contact/getContactData");
       console.log(response);
       
       toast.success(response?.data?.message || "data fetch successfully...");

@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     password: string;
   }) => {
     try {
-      const { data } = await api.post("/Admin/login", {
+      const { data } = await api.post("/api/Admin/login", {
         email,
         password,
       });
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   // LOGOUT
   const logout = async () => {
     try {
-      const { data } = await api.post("/Admin/logout");
+      const { data } = await api.post("/api/Admin/logout");
 
       console.log(data);
       toast.success("logout successfully...");
@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   // VERIFY USER
   const fetchUser = async () => {
     try {
-      const { data } = await api.get("/Admin/verify");
+      const { data } = await api.get("/api/Admin/verify");
 
       console.log("VERIFY RESPONSE:", data.admin);
 

@@ -18,7 +18,7 @@ function Addskills() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
   const getDatabyId = async () => {
-    const response = await api.get(`/Skill/getSkillById/${id}`);
+    const response = await api.get(`/api/Skill/getSkillById/${id}`);
     console.log(response?.data?.data);
     setFormData({
       name: response?.data?.data?.name,
@@ -32,7 +32,7 @@ function Addskills() {
 
   const handleSubmit = async () => {
     try {
-      const response = await api.post("/Skill/createSkill", formData);
+      const response = await api.post("/api/Skill/createSkill", formData);
       console.log(response);
       toast.success(response?.data?.message);
       setFormData({
@@ -47,7 +47,7 @@ function Addskills() {
   };
   const updateSkill = async () => {
     try {
-      const response = await api.put(`/Skill/updateSkill/${id}`, formData);
+      const response = await api.put(`/api/Skill/updateSkill/${id}`, formData);
 
       toast.success(response?.data?.data?.message || "Skill Updated successfully...");
       setFormData({

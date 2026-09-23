@@ -23,7 +23,7 @@ export default function Contact() {
 
   try {
     setIsSending(true)
-    const response = await api.post('/Contact', formData)
+    const response = await api.post('/api/Contact', formData)
     console.log(response.data)
     toast.success(response.data.message)
      setFormData({

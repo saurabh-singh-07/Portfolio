@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import {Mail, MailOpen,Trash2,Eye,X,Calendar,User,AtSign,MessageSquare,RefreshCw,} from "lucide-react";
 import type { Message } from "../../../assets/assets";
 import api from "../../../api/api";
@@ -20,7 +19,7 @@ export default function Messages() {
   const fetchMessages = async () => {
     try {
       setLoading(true);
-      const response = await api.get("/Contact/getContactData");
+      const response = await api.get("/api/Contact/getContactData");
       setMessages(response?.data?.data);   
     } catch (error) {
       console.error("Failed to fetch messages:", error);
@@ -31,7 +30,7 @@ export default function Messages() {
   // Mark message as read
   const markAsRead = async (id: string) => {
     try {
-      await api.patch(`/Contact/markAsRead/${id}`);
+      await api.patch(`/api/Contact/markAsRead/${id}`);
       setMessages((prev) =>
         prev.map((message) =>
           message._id === id
@@ -65,7 +64,7 @@ export default function Messages() {
       "Are you sure you want to delete this message?");
     if (!confirmDelete) return;
     try {
-      await api.delete(`Contact/deleteContact/${id}`)
+      await api.delete(`/api/Contact/deleteContact/${id}`)
       setMessages((prev) =>
         prev.filter((message) => message._id !== id)
       );
@@ -442,7 +441,7 @@ export default function Messages() {
                   className="
                     flex items-center justify-center gap-2
                     rounded-lg
-                    bg-gradient-to-r
+                    bg-linear-to-r
                     from-blue-600 to-indigo-600
                     px-5 py-2.5
                     text-sm font-medium text-white
