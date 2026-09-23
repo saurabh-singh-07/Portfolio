@@ -22,7 +22,7 @@ connectDB();
 const app = express();
 app.set("trust proxy", 1);
 
-app.use(cors({ origin: ["http://localhost:5173","https://saurabh007.vercel.app/"], credentials: true }));
+app.use(cors({ origin: ["http://localhost:5173","https://saurabh007.vercel.app"], credentials: true }));
 
 app.use(
   session({
