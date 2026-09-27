@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import { SpotLightBg } from "./components/SpotLightBg";
 import Projects from "./pages/public/Projects";
 import Contact from "./pages/public/Contact";
@@ -6,17 +7,17 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/public/Home";
 import Skills from "./pages/public/Skills";
 import Navbar from "./layout/Navbar";
-import Dashboard from "./pages/admin/Dashboard";
 import ScrollToTop from "react-scroll-to-top";
 import { FaArrowUp } from "react-icons/fa";
-import Messages from "./pages/admin/messages/Messages";
-import Addskills from "./pages/admin/skills/Addskills";
-import AdminLayout from "./pages/admin/Ad-layout/AdminLayout";
-import AddProject from "./pages/admin/Projects/AddProjects";
-import AddEducations from "./pages/admin/Educations/AddEducations";
+const AddProject = lazy (()=>import("./pages/admin/Projects/AddProjects"))
+const Addskills = lazy (()=>import("./pages/admin/skills/Addskills"))
+const Messages = lazy (()=>import("./pages/admin/messages/Messages"))
+const Dashboard = lazy (()=>import("./pages/admin/Dashboard"))
+const AdminLayout = lazy (()=>import("./pages/admin/Ad-layout/AdminLayout"))
+const AddEducations = lazy (()=> import("./pages/admin/Educations/AddEducations"));
+const AdminLogin = lazy (()=> import("./pages/admin/Ad-component.tsx/AdminLogin"))
 import { Toaster } from "react-hot-toast";
 import Educations from "./components/Educations";
-import AdminLogin from "./pages/admin/Ad-component.tsx/AdminLogin";
 import Protected from "./context/Protected";
 
 function App() {
@@ -71,4 +72,3 @@ function App() {
 
 export default App;
 
-// https://nidnasser.me/   https://abhishekganvir.vercel.app/

@@ -1,20 +1,18 @@
-import QuickActions from "./Ad-component.tsx/QuickActions";
-import RecentMsg from "./messages/RecentMsg";
-import AllProjects from "./Projects/Allprojects";
-import ShowSkills from "./skills/ShowSkills";
-import Details from "./Ad-component.tsx/Details";
-import { useState } from "react";
-
+import { lazy, useEffect, useState } from "react";
+const QuickActions = lazy (()=>import("./Ad-component.tsx/QuickActions"))
+const RecentMsg = lazy (()=> import("./messages/RecentMsg"))
+const AllProjects = lazy (()=> import("./Projects/Allprojects"))
+const ShowSkills = lazy (()=> import("./skills/ShowSkills"))
+const Details = lazy (()=> import("./Ad-component.tsx/Details")) 
 function Dashboard() {
   const [skillCount, setSkillCount] = useState<number>(0);
   const [projectCount, setProjectCount] = useState<number>(0);
   const [messageCount, setMessageCount] = useState<number>(0);
   const [educationCount, setEducationCount] = useState<number>(0); 
 
-  const handleEdu = ()=>{
-    setEducationCount(3);
-  }
-  handleEdu()
+  useEffect(()=>{
+    setEducationCount(3)
+  },[])
   return (
     <main className="w-full lg:max-w-375 lg:p-10 py-6">
       {/* Details */}

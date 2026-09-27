@@ -69,7 +69,6 @@ export default function Skills() {
     try {
       const response = await api.get("/api/Skill/getSkills");
 
-      console.log("API RESPONSE:", response.data?.data);
       setData(response?.data?.data || []);
 
       toast.success("Data fetched successfully...");

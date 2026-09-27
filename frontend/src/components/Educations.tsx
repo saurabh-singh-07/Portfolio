@@ -17,11 +17,7 @@ function Educations() {
   const fetchData = async () => {
     try {
       const response: any = await api.get("/api/Education/getEducation");
-      console.log("API data:", response.data.data[0]);
-
       setData(response.data.data[0]);
-
-      toast.success(response.message);
     } catch (error: any) {
       console.error(error.message);
       toast.error(error.response?.data?.message || "Something went wrong");

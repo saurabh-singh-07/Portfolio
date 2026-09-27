@@ -1,16 +1,16 @@
-import {type Request, type Response } from "express";
+import { type Request, type Response } from "express";
 import Admin from "../models/Admin.js";
 import bcrypt from "bcrypt";
 export const register = async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
-     return res.status(400).json({
+      return res.status(400).json({
         message: "Failed, please enter complate details...",
       });
     }
 
-    const existingAdmin  = await Admin.findOne({ email });
+    const existingAdmin = await Admin.findOne({ email });
 
     if (existingAdmin) {
       return res.status(400).json({
@@ -34,7 +34,7 @@ export const register = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error(error);
-   return res.status(500).json({
+    return res.status(500).json({
       messge: error.messge,
     });
   }
@@ -48,29 +48,36 @@ export const login = async (req: Request, res: Response) => {
         message: "failed, please fill all feild...",
       });
     }
-    const admin  = await Admin.findOne({ email });
-    if (!admin ) {
+    const admin = await Admin.findOne({ email });
+    if (!admin) {
       return res.status(400).json({
         message: "No admin found, please try again....",
       });
     }
-    const isPasswordCorrect = await bcrypt.compare(
-      password,
-      admin.password,
-    );
+    const isPasswordCorrect = await bcrypt.compare(password, admin.password);
     if (!isPasswordCorrect) {
       return res.status(400).json({
         message: "Invaild password...",
       });
     }
     req.session.AdminId = admin._id.toString();
+    req.session.isLoggedIn = true;
+    req.session.save((error) => {
+      if (error) {
+        console.error("Session save error:", error);
 
-    return res.status(200).json({
-      message: "login successfully...",
-      admin: {
-        name: admin.name,
-        email: admin.email,
-      },
+        return res.status(500).json({
+          message: "Failed to save session",
+        });
+      }
+
+      return res.status(200).json({
+        message: "Login successfully...",
+        admin: {
+          name: admin.name,
+          email: admin.email,
+        },
+      });
     });
   } catch (error: any) {
     console.error(error);
@@ -87,18 +94,18 @@ export const logoutAdmin = async (req: Request, res: Response) => {
       return res.status(500).json({
         message: error.message,
       });
-  }
-  return res.json({ message: "logout successful..." })
-});
+    }
+    return res.json({ message: "logout successful..." });
+  });
 };
 
 export const verifyAdmin = async (req: Request, res: Response) => {
   try {
     const { AdminId } = req.session;
-    if(!AdminId) {
+    if (!AdminId) {
       return res.status(401).json({
-        message : "Not authenticated..."
-      })
+        message: "Not authenticated...",
+      });
     }
     const admin = await Admin.findById(AdminId).select("-password");
 

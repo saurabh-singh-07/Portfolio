@@ -1,43 +1,45 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowBigRight, ArrowRight, ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
-import {motion} from 'motion/react'
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import api from "../../api/api";
 import toast from "react-hot-toast";
 import type { Project } from "../../assets/assets";
+import { useNavigate } from "react-router-dom";
 
-export default function Projects() {
+export default function Projects({ limit }: { limit?: number }) {
+  const navigate = useNavigate();
   const [data, setData] = useState<Project[] | []>([]);
-
   useEffect(() => {
     getData();
-  },[])
+  }, []);
 
   const getData = async () => {
     try {
       const response = await api.get("/api/Project/getProject");
       setData(response?.data?.projects);
-      console.log(response?.data?.projects);
-      
-      toast.success("data fetch successfully...")
-      
-    } catch (error : any) {
-      toast.error("Something wrong...")
-      console.error(error)
+
+      toast.success("data fetch successfully...");
+    } catch (error: any) {
+      toast.error("Something wrong...");
+      console.error(error);
     }
-  }
-
-
+  };
+  const visibleProjects = limit ? data.slice(0, 3) : data;
+  const handleProject = () => {
+    navigate("/projects");
+  };
   return (
     <section id="projects" className="min-h-screen px-6 py-24 text-white">
       <div className="mx-auto max-w-7xl">
         {/* Section Header */}
-        <motion.div 
-        initial={{ x: -50, opacity: 0 }}
-        whileInView={{ x: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="mb-16 text-center">
+        <motion.div
+          initial={{ x: -50, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16 text-center"
+        >
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-blue-400">
             My Work
           </p>
@@ -56,16 +58,18 @@ export default function Projects() {
 
         {/* Projects Grid */}
         <motion.div
-        initial={{ y: 100, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-         className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {data.map((project : Project) => (
+          initial={{ y: 100, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+        >
+          {visibleProjects.map((project: Project) => (
             <div
               key={project?.name}
               className="
-                group overflow-hidden rounded-2xlborder border-slate-800 dark:bg-slate-900/70 bg-slate-300/80 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-2  hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10">
+                group overflow-hidden rounded-2xlborder border-slate-800 dark:bg-slate-900/70 bg-slate-300/80 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-2  hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10"
+            >
               {/* Project Image */}
               <div className="relative aspect-video overflow-hidden bg-slate-800">
                 <img
@@ -76,9 +80,7 @@ export default function Projects() {
                 />
 
                 {/* Image Overlay */}
-                <div
-                  className=" absolute inset-0 bg-linear-to-t from-slate-950/60 via-transparent to-transparent opacity-0 transition group-hover:opacity-100 "
-                />
+                <div className=" absolute inset-0 bg-linear-to-t from-slate-950/60 via-transparent to-transparent opacity-0 transition group-hover:opacity-100 " />
               </div>
 
               {/* Project Content */}
@@ -96,7 +98,8 @@ export default function Projects() {
                   {project?.skills.map((tech) => (
                     <span
                       key={tech}
-                      className=" rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-xs font-medium dark:text-blue-300 text-slate-600">
+                      className=" rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-xs font-medium dark:text-blue-300 text-slate-600"
+                    >
                       {tech}
                     </span>
                   ))}
@@ -131,6 +134,16 @@ export default function Projects() {
           ))}
         </motion.div>
       </div>
+      {limit && (
+        <div className="flex justify-center mt-20">
+          <button
+            onClick={handleProject}
+            className="flex items-center gap-x-2 rounded-2xl border border-blue-600 py-1.5 px-4 text-lg font-semibold shadow-md shadow-indigo-600 hover:scale-99 duration-300 transition-all hover:shadow-lg hover:bg-blue-500 hover:text-white"
+          >
+            View all Projects <ArrowRight />
+          </button>
+        </div>
+      )}
     </section>
   );
 }

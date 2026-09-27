@@ -12,7 +12,7 @@ function Home() {
 
       <HeroSection />
       <Educations/>
-      <Projects />
+      <Projects limit= {3}/>
       <Skills />
       <About />
       <Contact />

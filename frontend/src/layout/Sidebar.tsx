@@ -24,7 +24,7 @@ function AdSideBar({ toggleSideBar, setToggleSideBar }: propsTypes) {
             <button className="text-slate-800/90 absolute right-5 p-1  dark:text-white" onClick={() => setToggleSideBar(!toggleSideBar)}> <X/> </button>
           </div>
 
-          <NavLink to="/admin/dashboard">
+          <NavLink to="/">
             {" "}
             <div className="bg-linear-120 from-blue-500 to-indigo-600 text-white text-2xl flex items-center font-semibold px-4 gap-x-2 py-2 rounded">
               <Home className="p-1 size-8" /> Dashboard
