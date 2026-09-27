@@ -1,4 +1,4 @@
-import { ArrowBigRight, ArrowRight, ArrowUpRight } from "lucide-react";
+import {  ArrowRight, ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
