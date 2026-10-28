@@ -9,6 +9,7 @@
     "dev" : "nodemon --exec tsx src/index.ts",
     "build": "tsc"
   },
+  
   "keywords": [],
   "author": "",
   "license": "ISC",

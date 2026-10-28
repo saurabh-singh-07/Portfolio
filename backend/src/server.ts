@@ -17,7 +17,6 @@ declare module "express-session" {
     AdminId: string;
   }
 }
-
 connectDB();
 const app = express();
 

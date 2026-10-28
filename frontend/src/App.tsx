@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { SpotLightBg } from "./components/SpotLightBg";
 import Projects from "./pages/public/Projects";
 import Contact from "./pages/public/Contact";
@@ -26,7 +26,7 @@ function App() {
     <div className=" flex flex-col ">
       <Toaster/>
       <SpotLightBg />
-
+      <Suspense fallback={<p>Loading...</p>}>
       <Routes>
         {/* public routes  */}
         <Route element={<Navbar />}>
@@ -58,6 +58,7 @@ function App() {
         </Route>
         </Route>
       </Routes>
+      </Suspense>
       <ScrollToTop
         smooth
         component={<FaArrowUp className="text-white font-bold" />}

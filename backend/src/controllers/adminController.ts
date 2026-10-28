@@ -44,9 +44,11 @@ export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
     if (!password || !email) {
+      
       return res.status(400).json({
         message: "failed, please fill all feild...",
       });
+
     }
     const admin = await Admin.findOne({ email });
     if (!admin) {

@@ -138,7 +138,7 @@ export default function Projects({ limit }: { limit?: number }) {
         <div className="flex justify-center mt-20">
           <button
             onClick={handleProject}
-            className="flex items-center gap-x-2 rounded-2xl border border-blue-600 py-1.5 px-4 text-lg font-semibold shadow-md shadow-indigo-600 hover:scale-99 duration-300 transition-all hover:shadow-lg hover:bg-blue-500 hover:text-white"
+            className="flex items-center gap-x-2 rounded-2xl border border-blue-600 text-slate-700/80 dark:text-slate-300 py-1.5 px-4 text-lg font-semibold shadow-md shadow-indigo-600 hover:scale-99 duration-300 transition-all hover:shadow-lg hover:bg-blue-500 hover:text-white"
           >
             View all Projects <ArrowRight />
           </button>
